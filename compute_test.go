@@ -3,6 +3,7 @@ package safecomp_test
 import (
 	"testing"
 
+	"github.com/shopspring/decimal"
 	"github.com/stretchr/testify/assert"
 	"github.com/zergon321/safecomp"
 )
@@ -45,5 +46,14 @@ func BenchmarkSafeMulFloat64(b *testing.B) {
 func BenchmarkRegularMulFloat64(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		_ = 2090.5 * 8.61
+	}
+}
+
+func BenchmarkMulDecimal(b *testing.B) {
+	x := decimal.NewFromFloat(2090.5)
+	y := decimal.NewFromFloat(8.61)
+
+	for i := 0; i < b.N; i++ {
+		x.Mul(y)
 	}
 }
